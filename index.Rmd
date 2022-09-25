@@ -1,0 +1,182 @@
+---
+title: "Andrew Gilliland's CV"
+author: Andrew Gilliland
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_resume:
+    css: ['css/styles.css', 'resume']
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  results = "asis", 
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(tidyverse)
+library(readxl)
+library(magick)
+library(glue)
+library(janitor)
+library(bib2df)
+
+source("formatEmploymentHistoryFn.R")
+
+```
+
+```{css, echo=FALSE}
+.pagedjs_page:not(:first-of-type) {
+--sidebar-width: 0rem;
+--sidebar-background-color: #ffffff;
+--main-width: calc(var(--content-width) - var(--sidebar-width));
+--decorator-horizontal-margin: 0.2in;
+}
+```
+
+# Aside
+
+```{r logo, warning = FALSE, message = FALSE, error = FALSE, fig.align = "center", out.width="50%"}
+logo <- image_read("hex-andygilly.png")
+logo
+```
+
+## Contact {#contact}
+
+-   <i class="fa fa-link"></i> [andygilly.netlify.app/](https://andygilly.netlify.app/)
+-   <i class="fa fa-github"></i> [\@andrewgilly](https://github.com/andrewgilly)
+-   <i class="fa fa-linkedin"></i> [\@andygilly](https://linkedin.com/in/andygilly)
+-   <i class="fa fa-envelope"></i> [andrewjgilliland\@gmail.com](mailto:andrewjgilliland@gmail.com){.email}
+-   <i class="fa fa-phone"></i> (+44)7450 826 083
+
+##  {#skills}
+
+**Programming:**
+
+-   R | R Shiny | R Markdown
+-   Tidyverse
+-   Blogdown | Bookdown | Pagedown
+-   Azure DevOps
+-   Jira
+-   Confluence
+-   Git | GitHub | GHE
+
+**Other IT & Systems:**
+
+-   Prophet Professional 
+-   Prophet Enterprise
+-   Excel
+-   VBA
+
+**Personal interests:**
+
+-   Mountain biking
+-   Hill running
+-   Badminton
+
+## Disclaimer {#disclaimer}
+
+Made with the R package [**pagedown**](https://github.com/rstudio/pagedown).
+
+Last updated on `r Sys.Date()`
+
+# Main
+
+## Andrew Gilliland {#title}
+
+### Actuarial Model Developer | R Developer
+
+I am an R Developer at [**Hymans Robertson**](https://www.hymans.co.uk/), specialising in the development of R Shiny apps to transform our ways of working.
+
+I have worked a variety of roles within the actuarial space including modelling & model development, bulk annuity pricing and asset & liability management. More recently I have been gaining experience within pensions & investments.
+
+I am experienced with the end-to-end software development cycle from scoping & design, testing & development, and delivery & release activities. I have a particular enthusiasm for improving the user experience and always looking for better ways to structure a process or present some data.
+
+I'm a very self-driven individual known for being passionate, curious and always open to fresh challenges. I enjoy collaborative work environments where I can learn from my peers, and also share my own knowledge. I'm always open to chat and really enjoy teaching & working with others. 
+
+
+
+
+## Education {data-icon="graduation-cap" data-concise="true"}
+
+```{r print-edu}
+edu_data <- read_xlsx("data.xlsx", sheet = "education")
+
+edu_data %>% 
+  arrange(desc(end)) %>% 
+  mutate(id = 1:n()) %>% 
+  pivot_longer(
+    starts_with('description'),
+    names_to = 'description_num',
+    values_to = 'description',
+    values_drop_na = TRUE
+  ) %>% 
+  group_by(id) %>% 
+  mutate(
+    descriptions = list(description)
+  ) %>% 
+  ungroup() %>% 
+  filter(description_num == 'description_1') %>% 
+  mutate(
+    timeline = ifelse(
+      is.na(start) | start == end,
+      end,
+      glue('{end} - {start}')
+    ),
+    description_bullets = map_chr(descriptions, ~paste('-', ., collapse = '\n')),
+  ) %>% 
+  mutate_all(~ifelse(is.na(.), 'N/A', .)) %>% 
+  glue_data(
+    "### {title}",
+    "\n\n",
+    "{institution}",
+    "\n\n",
+    "{loc}",
+    "\n\n",
+    "{timeline}", 
+    "\n\n",
+    "{description_bullets}",
+    "\n\n",
+    "\n\n\n",
+  )
+```
+
+## Employment {data-icon="suitcase"}
+
+```{r print-emp}
+
+emp_data <- read_xlsx("data.xlsx", sheet = "employment")
+employmentHistory <- emp_data %>%
+  replace_na(list(end = "present")) %>%
+  mutate(uniqueTitle = paste0(title, "_", org, loc)) %>%
+  nest(data = -c(org, loc)) 
+
+
+glue(formatCurrentEmployment(employmentHistory[1,]),
+     formatFormerEmployment(employmentHistory[2,], "Actuarial Model Developer"))
+
+```
+
+## Qualifications {data-icon="award"}
+
+```{r print-awds}
+awards <- read_xlsx("data.xlsx", sheet = "awards") %>%
+  filter(display) %>%
+  mutate(display_text = glue("- {award}")) %>%
+  group_by(awardingBody) %>%
+  summarize(bullets = paste(display_text, collapse = "\n")) %>%
+  arrange(awardingBody) %>%
+  glue_data(
+    "### {awardingBody}",
+    "\n\n",
+    "{bullets}",
+    "\n\n",
+    "\n\n\n"
+  )
+
+awards
+
+```
+
