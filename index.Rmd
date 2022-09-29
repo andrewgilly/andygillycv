@@ -39,9 +39,12 @@ source("formatEmploymentHistoryFn.R")
 # Aside
 
 ```{r logo, warning = FALSE, message = FALSE, error = FALSE, fig.align = "center", out.width="50%"}
-logo <- image_read("hex-andygilly.png")
-logo
+# logo <- image_read("hex-andygilly.png")
+# logo <- image_read("logo.svg")
+# logo
+  
 ```
+<img src = "logo.svg">
 
 ## Contact {#contact}
 
