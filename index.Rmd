@@ -96,6 +96,22 @@ Working at [**Hymans Robertson**](https://www.hymans.co.uk/), I specialise in th
 
 I have a particular enthusiasm for improving the user experience and always looking for better ways to structure a process or present some data. I'm known to be a self-driven individual who brings passion and curiosity to the workplace. I enjoy collaborative work environments where I can learn from my peers, and also enjoy the opportunity share my own knowledge.
 
+## Employment {data-icon="suitcase"}
+
+```{r print-emp}
+
+emp_data <- read_xlsx("data.xlsx", sheet = "employment")
+employmentHistory <- emp_data %>%
+  replace_na(list(end = "present")) %>%
+  mutate(uniqueTitle = paste0(title, "_", org, loc)) %>%
+  nest(data = -c(org, loc)) 
+
+
+glue(formatCurrentEmployment(employmentHistory[1,]),
+     formatFormerEmployment(employmentHistory[2,], "Actuarial Model Developer"))
+
+```
+
 
 ## Education {data-icon="graduation-cap" data-concise="true"}
 
@@ -141,21 +157,7 @@ edu_data %>%
   )
 ```
 
-## Employment {data-icon="suitcase"}
 
-```{r print-emp}
-
-emp_data <- read_xlsx("data.xlsx", sheet = "employment")
-employmentHistory <- emp_data %>%
-  replace_na(list(end = "present")) %>%
-  mutate(uniqueTitle = paste0(title, "_", org, loc)) %>%
-  nest(data = -c(org, loc)) 
-
-
-glue(formatCurrentEmployment(employmentHistory[1,]),
-     formatFormerEmployment(employmentHistory[2,], "Actuarial Model Developer"))
-
-```
 
 ## Qualifications {data-icon="award"}
 
