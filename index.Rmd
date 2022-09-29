@@ -48,8 +48,8 @@ source("formatEmploymentHistoryFn.R")
 
 ## Contact {#contact}
 
--   <i class="fa fa-link"></i> [andygilly.netlify.app/](https://andygilly.netlify.app/)
--   <i class="fa fa-github"></i> [\@andrewgilly](https://github.com/andrewgilly)
+<!-- -   <i class="fa fa-link"></i> [andygilly.netlify.app/](https://andygilly.netlify.app/) -->
+<!-- -   <i class="fa fa-github"></i> [\@andrewgilly](https://github.com/andrewgilly) -->
 -   <i class="fa fa-linkedin"></i> [\@andygilly](https://linkedin.com/in/andygilly)
 -   <i class="fa fa-envelope"></i> [andrewjgilliland\@gmail.com](mailto:andrewjgilliland@gmail.com){.email}
 -   <i class="fa fa-phone"></i> (+44)7450 826 083
@@ -92,15 +92,9 @@ Last updated on `r Sys.Date()`
 
 ### Actuarial Model Developer | R Developer
 
-I am an R Developer at [**Hymans Robertson**](https://www.hymans.co.uk/), specialising in the development of R Shiny apps.
+Working at [**Hymans Robertson**](https://www.hymans.co.uk/), I specialise in the development of R Shiny apps. In particular, I build and maintain packages within the pensions & investments space where I am involved in the full end-to-end software development cycle. This includes scoping & design activities, development, testing, product delivery and release activities. 
 
-I have worked a variety of roles within the actuarial space including modelling & model development, bulk annuity pricing and asset & liability management. More recently I have been gaining experience within pensions & investments.
-
-I am experienced with the end-to-end software development cycle from scoping & design, testing & development, and delivery & release activities. I have a particular enthusiasm for improving the user experience and always looking for better ways to structure a process or present some data.
-
-I'm a very self-driven individual known for being passionate, curious and always open to fresh challenges. I enjoy collaborative work environments where I can learn from my peers, and also share my own knowledge. I'm always open to chat and really enjoy teaching & working with others. 
-
-
+I have a particular enthusiasm for improving the user experience and always looking for better ways to structure a process or present some data. I'm known to be a self-driven individual who brings passion and curiosity to the workplace. I enjoy collaborative work environments where I can learn from my peers, and also enjoy the opportunity share my own knowledge.
 
 
 ## Education {data-icon="graduation-cap" data-concise="true"}
