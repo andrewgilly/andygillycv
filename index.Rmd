@@ -1,5 +1,5 @@
 ---
-title: "Andrew Gilliland's CV"
+title: "Andrew Gilliland"
 author: Andrew Gilliland
 date: "`r Sys.Date()`"
 output:
@@ -84,7 +84,7 @@ source("formatEmploymentHistoryFn.R")
 
 Made with the R package [**pagedown**](https://github.com/rstudio/pagedown).
 
-Last updated on `r Sys.Date()`
+<!-- Last updated on `r Sys.Date()` -->
 
 # Main
 
